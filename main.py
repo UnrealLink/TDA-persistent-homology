@@ -7,7 +7,7 @@ from plot import plot_barcode
 
 if __name__ == "__main__":
     print("Parsing data...")
-    complex = Complex("data/klein.txt")
+    complex = Complex("data/test.txt")
     # print(complex)
     print("Creating boundary matrix...")
     matrix = Matrix(complex)
