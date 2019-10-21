@@ -11,7 +11,8 @@ class Matrix:
             self.columns.append(Column(simplex))
 
     def reduction(self):
-        for i, column in tqdm(enumerate(self.columns)):
+        i = 0
+        for column in tqdm(self.columns):
             done = False
             while not done:
                 if column.non_zeroes == []:
@@ -24,6 +25,7 @@ class Matrix:
                         done = True
                     else:
                         column += self.columns[j]
+            i += 1
 
     def barcode(self):
         barcode = []

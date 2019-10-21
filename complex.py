@@ -19,9 +19,5 @@ class Complex:
         self.simplices, self.index_map = zip(*sorted(list(zip(self.lex_simplices, self.index_map)),
                                                      key=lambda x: x[0]))
 
-
         for simplex in tqdm(self.simplices):
             simplex.set_faces(self.lex_simplices, self.index_map)
-        
-        for simplex in self.simplices:
-            print(simplex.faces)
