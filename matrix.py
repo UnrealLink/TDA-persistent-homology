@@ -3,6 +3,9 @@ from tqdm import tqdm
 from simplex import Simplex
 from column import Column
 
+import sys
+np.set_printoptions(threshold=sys.maxsize)
+
 class Matrix:
     def __init__(self, complex):
         self.pivots = [-1]*len(complex.simplices)

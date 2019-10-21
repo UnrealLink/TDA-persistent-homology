@@ -6,7 +6,7 @@ Created on Mon Oct 21 10:54:47 2019
 """
 
 
-def ballGenerator(d, plain = False):
+def ballGenerator(d, filled = False, filename=None):
     """Generate text code for a filtration of the d-ball, or the d-1-sphere if plain is set to false.
     The filtration used is a simplicial filtration of a d dimension tetraedra, where value is set equal to dim
     in order to ensure that the creation is consistent.
@@ -32,10 +32,16 @@ def ballGenerator(d, plain = False):
             for k in range(1, dim + 1):
                 if vertices[k] == -1:
                     vertices[k] = vertices[k-1] + 1
-    if plain:
+    if filled:
         nextline = str(d) + " " + str(d)
         for i in range(nbpoints):
             nextline += " " + str(i)
         l.append(nextline)
+        
+    if filename:
+        with open(filename, 'w', encoding='ascii') as f:
+            for line in l:
+                f.write(line)
+                f.write('\n')
+                
     return l
-            
