@@ -5,9 +5,9 @@ from column import Column
 
 class Matrix:
     def __init__(self, complex):
-        self.pivots = [-1]*len(complex)
+        self.pivots = [-1]*len(complex.simplices)
         self.columns = []
-        for simplex in tqdm(complex):
+        for simplex in tqdm(complex.simplices):
             self.columns.append(Column(simplex))
 
     def reduction(self):
