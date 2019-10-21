@@ -1,3 +1,4 @@
+import pickle
 from complex import Complex
 from simplex import Simplex
 from column import Column
@@ -6,7 +7,7 @@ from plot import plot_barcode
 
 if __name__ == "__main__":
     print("Parsing data...")
-    complex = Complex("data/torus.txt")
+    complex = Complex("data/klein.txt")
     # print(complex)
     print("Creating boundary matrix...")
     matrix = Matrix(complex)
@@ -15,6 +16,8 @@ if __name__ == "__main__":
     matrix.reduction()
     # print(matrix)
     barcode = matrix.barcode()
+    with open('data/result', 'wb') as f:
+        pickle.dump(barcode, f)
     # print(barcode)
     plot_barcode(barcode)
 
