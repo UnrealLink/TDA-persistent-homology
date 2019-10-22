@@ -1,4 +1,5 @@
 from tqdm import tqdm
+from multiprocessing import Pool
 from simplex import Simplex
 from utils import binary_search
 
@@ -9,15 +10,24 @@ class Complex:
         self.index_map = []
 
         with open(filename, 'r', encoding='ascii') as f:
-            i = 0
             for line in tqdm(f.readlines()):
                 simplex = Simplex(*line.split())
                 self.lex_simplices.append(simplex)
-                self.index_map.append(i)
-                i += 1
-        self.lex_simplices.sort(key=lambda x: x.vertices)
+        self.index_map = list(range(len(self.lex_simplices)))
+        self.lex_simplices.sort(key=lambda x: x.vertices) # sort simplices by lexicographical order on the sorted vertices
+        # this sort the simplices by the filtration order, and keep the indexes of the simplices per the list above
         self.simplices, self.index_map = zip(*sorted(list(zip(self.lex_simplices, self.index_map)),
                                                      key=lambda x: x[0]))
 
-        for simplex in tqdm(self.simplices):
-            simplex.set_faces(self.lex_simplices, self.index_map)
+        pool = Pool() # using multiprocessing to gain some time
+        print("Computing faces... (no progress bar available, this might take a few minutes)")
+        self.simplices = pool.map(self.set_faces, self.simplices)
+        pool.close()
+        self.simplices.sort()
+
+        # for simplex in tqdm(self.simplices):
+        #     simplex.set_faces(self.lex_simplices, self.index_map)
+
+    def set_faces(self, simplex):
+        simplex.set_faces(self.lex_simplices, self.index_map)
+        return simplex # child process has a copy of simplex so modifying in place doesn't work

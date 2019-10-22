@@ -6,6 +6,7 @@ class Column:
         self.simplex = simplex
     
     def __iadd__(self, column):
+        # this addition is made assuming we work in Z/2Z
         i, j = 0, 0
         new_column = []
         while i < len(self.non_zeroes) and j < len(column.non_zeroes):
