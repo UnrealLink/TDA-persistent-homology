@@ -7,6 +7,7 @@ class Simplex:
         self.value = float(value)
         self.dim = int(dim)
         self.vertices = tuple(sorted([int(x) for x in vertices]))
+        self.hash = hash(self.vertices)
         self.faces = list() # indices of faces in sorted simplices list
 
     def contained(self, simplex):
@@ -23,6 +24,15 @@ class Simplex:
             face_index = binary_search(sorted_complex, face, inf_func=lambda s1,s2: s1.vertices<s2.vertices)
             assert face_index != -1
             self.faces.append(index_map.index(face_index))
+
+    def set_faces_hash(self, hash_table):
+        if self.dim == 0:
+            return
+        for i in range(self.dim+1):
+            face = Simplex(0., self.dim-1, *[x for j,x in enumerate(self.vertices) if j != i])
+            face_index = hash_table.get(face.hash)
+            assert face_index != None
+            self.faces.append(face_index)
 
     def __lt__(self, simplex):
         return self.value < simplex.value or self.contained(simplex)

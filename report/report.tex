@@ -54,21 +54,13 @@ de suivre un paradigme de programmation orientée objet):
 
 \subsection{Création de la matrice}
 
-Afin de créer la \textit{boundary matrix}, nous trions deux fois
-la liste des simplexes tout en gardant en mémoire la table 
-d’association entre ces deux listes : une fois selon l'ordre 
-imposée par la filtration, qui sera celui dans lequel ils 
-apparaitront dans la matrice, et une fois selon l'ordre 
-lexicographique de leurs sommets. Ce dernier tri nous permet de 
-calculer plus efficacement les faces dont sont composées les
-simplexes, car on peut effectuer pour chaque face (dont on n'a que
-la liste des sommets) une recherche dichotomique dans la liste 
-triée par ordre lexicographique afin d'en trouver l'indice dans 
-celle triée selon l'ordre de la filtration (à l'aide de la table
-d'association). Cet étape s'effectue ainsi en complexité pseudo
-linéaire ($n\log(n)$ avec $n$ le nombre de simplexes) et il suffit 
+Afin de créer la \textit{boundary matrix}, nous avons utilisé une
+table de hachage afin de trouver pour chaque simplex les indices
+de ses faces dans la liste triée selon l'ordre imposé par la
+filtration. Cet étape s'effectue ainsi en complexité linéaire 
+(selon le nombre de simplexes) et il suffit 
 ensuite de créer la matrice en parcourant la liste des simplexes 
-et en créant les colonnesadéquates, ce qui se fait donc en 
+et en créant les colonnes adéquates, ce qui se fait donc en 
 complexité $O(dn)$ (avec $d$ la dimension maximale des simplexes)
 ce qui est donc une complexité linéaire dans la plupart des cas
 étudiés.
@@ -114,17 +106,17 @@ les sphères, les boules et le tore.
 \begin{itemize}
     \item[\textbf{filtration A}] \hspace{1cm}
         \begin{itemize}
-            \item[Création de la matrice :] 13 minutes 21 secondes
+            \item[Création de la matrice :] 43 secondes % (13 minutes 21 secondes sans la table de hachage)
             \item[Réduction de la matrice :] 18 minutes 55 secondes 
         \end{itemize}
     \item[\textbf{filtration B}] \hspace{1cm}
         \begin{itemize}
-            \item[Création de la matrice :] 51 secondes
+            \item[Création de la matrice :] 10 secondes % (51 secondes sans la table de hachage)
             \item[Réduction de la matrice :] 50 secondes 
         \end{itemize}
     \item[\textbf{filtration C}] \hspace{1cm}
         \begin{itemize}
-            \item[Création de la matrice :] 2 minutes 3 secondes
+            \item[Création de la matrice :] 20 secondes % (2 minutes 3 secondes sans la table de hachage)
             \item[Réduction de la matrice :] 2 minutes 3 secondes 
         \end{itemize}
     \item[\textbf{filtration D}] \hspace{1cm}

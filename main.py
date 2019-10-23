@@ -20,11 +20,11 @@ if __name__ == "__main__":
     # print(matrix)
     print("Computing barcode...")
     barcode = matrix.barcode()
-    with open(f'results/result_{INPUT_FILE}.pickled', 'wb') as f:
-        pickle.dump(barcode, f)
-    with open(f'results/result_{INPUT_FILE}.txt', 'w') as f:
-        for code in barcode:
-            f.write("{} {} {}\n".format(*code))
+    # with open(f'results/result_{INPUT_FILE}.pickled', 'wb') as f:
+    #     pickle.dump(barcode, f)
+    # with open(f'results/result_{INPUT_FILE}.txt', 'w') as f:
+    #     for code in barcode:
+    #         f.write("{} {} {}\n".format(*code))
     # print(barcode)
     # with open(f'results/result_{INPUT_FILE}.pickled', 'rb') as f:
     #     barcode = pickle.load(f)
