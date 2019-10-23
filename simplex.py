@@ -7,7 +7,7 @@ class Simplex:
         self.value = float(value)
         self.dim = int(dim)
         self.vertices = tuple(sorted([int(x) for x in vertices]))
-        self.faces = list()
+        self.faces = list() # indices of faces in sorted simplices list
 
     def contained(self, simplex):
         for vertex in self.vertices:

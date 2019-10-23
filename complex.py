@@ -1,5 +1,6 @@
 from tqdm import tqdm
 from multiprocessing import Pool
+from time import time
 from simplex import Simplex
 from utils import binary_search
 
@@ -20,10 +21,12 @@ class Complex:
                                                      key=lambda x: x[0]))
 
         pool = Pool() # using multiprocessing to gain some time
-        print("Computing faces... (no progress bar available, this might take a few minutes)")
+        start = time()
+        print("Computing faces... (no progress bar available, this might take a few minutes)", end="")
         self.simplices = pool.map(self.set_faces, self.simplices)
         pool.close()
         self.simplices.sort()
+        print(f" Done in {time()-start} s")
 
         # for simplex in tqdm(self.simplices):
         #     simplex.set_faces(self.lex_simplices, self.index_map)
